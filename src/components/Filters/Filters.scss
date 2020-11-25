@@ -1,0 +1,50 @@
+.filters {
+  display: flex;
+  flex-direction: column;
+
+  width: 232px;
+  height: 252px;
+  background: #ffffff;
+  box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 5px;
+
+  &__header {
+    padding: 20px;
+    height: 12px;
+    font-size: 12px;
+    line-height: 12px;
+    text-transform: uppercase;
+  }
+  &__item {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    height: 40px;
+    padding: 10px 20px;
+    cursor: pointer;
+    &:hover {
+      background-color: #f1fcff;
+    }
+  }
+
+  &__checkbox {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    &:checked + span.filters__custom-checkbox {
+      background-image: url(./checked.svg);
+    }
+  }
+
+  &__custom-checkbox {
+    width: 20px;
+    height: 20px;
+    background-image: url(./checkbox.svg);
+  }
+
+  &__name {
+    padding-left: 10px;
+    font-size: 13px;
+    color: #4a4a4a;
+  }
+}

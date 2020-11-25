@@ -1,0 +1,14 @@
+.tickets {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 503px;
+
+  &__tab {
+    margin-bottom: 20px;
+  }
+
+  &__ticket {
+    margin-bottom: 20px;
+  }
+}
