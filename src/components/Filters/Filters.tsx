@@ -1,38 +1,93 @@
 import React from 'react';
+import { connect, ConnectedProps } from 'react-redux';
+import * as actions from '../../redux/action';
 
-import './Filters.scss';
+import type { InitialStateType, TransferType } from '../../redux/reducer';
+import styles from './Filters.module.scss';
 
-const Filters: React.FC = () => {
+type PropsFromRedux = ConnectedProps<typeof connector>;
+
+type PropsType = PropsFromRedux & TransferType;
+
+const Filters = ({ props, setTransfer }: PropsType) => {
+  const { all, none, one, two, three } = props;
+
+  const changeCheckboxHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const { target } = event;
+    const { name, checked } = target;
+    const isAllPressed = name === 'all';
+
+    setTransfer({ ...props, [name]: checked }, isAllPressed);
+  };
+
   return (
-    <section className="content__filters filters">
-      <h4 className="filters__header">количество пересадок</h4>
-      <label className="filters__item">
-        <input className="filters__checkbox" type="checkbox" />
-        <span className="filters__custom-checkbox" />
-        <span className="filters__name">Все</span>
+    <section className={`${styles.content__filters} ${styles.filters}`}>
+      <h4 className={styles.filters__header}>количество пересадок</h4>
+      <label className={styles.filters__item}>
+        <input
+          className={styles.filters__checkbox}
+          type="checkbox"
+          name="all"
+          checked={all}
+          onChange={changeCheckboxHandler}
+        />
+        <span className={styles['filters__custom-checkbox']} />
+        <span className={styles.filters__name}>Все</span>
       </label>
-      <label className="filters__item">
-        <input className="filters__checkbox" type="checkbox" />
-        <span className="filters__custom-checkbox" />
-        <span className="filters__name">Без пересадок</span>
+      <label className={styles.filters__item}>
+        <input
+          className={styles.filters__checkbox}
+          type="checkbox"
+          name="none"
+          checked={none}
+          onChange={changeCheckboxHandler}
+        />
+        <span className={styles['filters__custom-checkbox']} />
+        <span className={styles.filters__name}>Без пересадок</span>
       </label>
-      <label className="filters__item">
-        <input className="filters__checkbox" type="checkbox" />
-        <span className="filters__custom-checkbox" />
-        <span className="filters__name">1 пересадка</span>
+      <label className={styles.filters__item}>
+        <input
+          className={styles.filters__checkbox}
+          type="checkbox"
+          name="one"
+          checked={one}
+          onChange={changeCheckboxHandler}
+        />
+        <span className={styles['filters__custom-checkbox']} />
+        <span className={styles.filters__name}>1 пересадка</span>
       </label>
-      <label className="filters__item">
-        <input className="filters__checkbox" type="checkbox" />
-        <span className="filters__custom-checkbox" />
-        <span className="filters__name">2 пересадки</span>
+      <label className={styles.filters__item}>
+        <input
+          className={styles.filters__checkbox}
+          type="checkbox"
+          name="two"
+          checked={two}
+          onChange={changeCheckboxHandler}
+        />
+        <span className={styles['filters__custom-checkbox']} />
+        <span className={styles.filters__name}>2 пересадки</span>
       </label>
-      <label className="filters__item">
-        <input className="filters__checkbox" type="checkbox" />
-        <span className="filters__custom-checkbox" />
-        <span className="filters__name">3 пересадки</span>
+      <label className={styles.filters__item}>
+        <input
+          className={styles.filters__checkbox}
+          type="checkbox"
+          name="three"
+          checked={three}
+          onChange={changeCheckboxHandler}
+        />
+        <span className={styles['filters__custom-checkbox']} />
+        <span className={styles.filters__name}>3 пересадки</span>
       </label>
     </section>
   );
 };
 
-export default Filters;
+const mapStateToProps = (state: InitialStateType) => {
+  return {
+    props: state.transfer,
+  };
+};
+
+const connector = connect(mapStateToProps, actions);
+
+export default connector(Filters);

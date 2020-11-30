@@ -3,11 +3,11 @@ import React from 'react';
 import Filters from '../Filters';
 import TicketList from '../TicketList';
 
-import './Content.scss';
+import styles from './Content.module.scss';
 
 const Content: React.FC = () => {
   return (
-    <section className="content">
+    <section className={styles.content}>
       <Filters />
       <TicketList />
     </section>

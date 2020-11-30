@@ -1,18 +1,17 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
 
 import Header from '../Header';
 import Content from '../Content';
 
-import './App.scss';
+import styles from './App.module.scss';
 
 const App: React.FC = () => {
   return (
-    <div className="wrapper">
+    <div className={styles.wrapper}>
       <Header />
       <Content />
     </div>
   );
 };
 
-ReactDOM.render(<App />, document.getElementById('root'));
+export default App;
