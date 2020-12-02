@@ -1,43 +1,28 @@
 import React from 'react';
+import type { TicketI } from '../../redux/reducer';
+import { transfromSegmentData } from './transformSegmentData';
 
-import logo from './logo.png';
 import styles from './Ticket.module.scss';
 
-const Ticket: React.FC = () => {
+type TicketProps = {
+  ticket: TicketI;
+};
+
+const Ticket: React.FC<TicketProps> = ({ ticket }) => {
+  const {
+    carrier,
+    price,
+    segments: [to, from],
+  } = ticket;
+
   return (
     <div className={`${styles.tickets__ticket} ${styles.ticket}`}>
       <div className={`${styles.ticket__head} ${styles.head}`}>
-        <span className={styles.head__price}>13 400 Р</span>
-        <img className={styles.head__logo} src={logo} alt="S7 logo" />
+        <span className={styles.head__price}>{`${price} P`}</span>
+        <img className={styles.head__logo} src={`http://pics.avs.io/99/36/${carrier}.png`} alt={`${carrier}`} />
       </div>
-      <ul className={`${styles.ticket__info} ${styles.info}`}>
-        <li className={styles.info__item}>
-          <span className={styles.info__description}>MOW – HKT</span>
-          <span className={styles.info__text}>10:45 – 08:00</span>
-        </li>
-        <li className={styles.info__item}>
-          <span className={styles.info__description}>В пути</span>
-          <span className={styles.info__text}>21ч 15м</span>
-        </li>
-        <li className={styles.info__item}>
-          <span className={styles.info__description}>2 пересадки</span>
-          <span className={styles.info__text}>HKG, JNB</span>
-        </li>
-      </ul>
-      <ul className={`${styles.ticket__info} ${styles.info}`}>
-        <li className={styles.info__item}>
-          <span className={styles.info__description}>MOW – HKT</span>
-          <span className={styles.info__text}>11:20 – 00:50</span>
-        </li>
-        <li className={styles.info__item}>
-          <span className={styles.info__description}>В пути</span>
-          <span className={styles.info__text}>13ч 30м</span>
-        </li>
-        <li className={styles.info__item}>
-          <span className={styles.info__description}>1 пересадка</span>
-          <span className={styles.info__text}>HKG</span>
-        </li>
-      </ul>
+      {transfromSegmentData(to)}
+      {transfromSegmentData(from)}
     </div>
   );
 };

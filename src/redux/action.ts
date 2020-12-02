@@ -1,4 +1,5 @@
 import type { TransferType, ActionType } from './reducer';
+import { GET_TICKETS, SET_TRANSFER } from './types';
 
 // eslint-disable-next-line import/prefer-default-export
 export function setTransfer({ all, none, one, two, three }: TransferType, isAllPressed: boolean): ActionType {
@@ -13,5 +14,5 @@ export function setTransfer({ all, none, one, two, three }: TransferType, isAllP
   } else {
     transfer.all = false;
   }
-  return { type: 'SET_TRANSFER', payload: transfer };
+  return { type: SET_TRANSFER, payload: transfer };
 }
