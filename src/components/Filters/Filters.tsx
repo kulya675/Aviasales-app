@@ -2,14 +2,14 @@ import React from 'react';
 import { connect, ConnectedProps } from 'react-redux';
 import * as actions from '../../redux/action';
 
-import type { InitialStateType, TransferType } from '../../redux/reducer';
+import type { InitialStateType } from '../../redux/reducer';
 import styles from './Filters.module.scss';
 
 type PropsFromRedux = ConnectedProps<typeof connector>;
 
-type PropsType = PropsFromRedux & TransferType;
+type PropsType = PropsFromRedux;
 
-const Filters = ({ props, setTransfer }: PropsType) => {
+const Filters: React.FC<PropsType> = ({ props, setTransfer }: PropsType) => {
   const { all, none, one, two, three } = props;
 
   const changeCheckboxHandler = (event: React.ChangeEvent<HTMLInputElement>) => {

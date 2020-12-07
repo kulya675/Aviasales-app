@@ -1,20 +1,36 @@
-import { GET_TICKETS, SET_TRANSFER } from './types';
+import { SET_KIND, SET_TICKETS, SET_TRANSFER } from './types';
 
 export type InitialStateType = {
   transfer: TransferType;
+  kind: KindType;
+  tickets: Array<TicketI>;
 };
 
 export type TransferType = {
-  all?: boolean;
-  none?: boolean;
-  one?: boolean;
-  two?: boolean;
-  three?: boolean;
+  all: boolean;
+  none: boolean;
+  one: boolean;
+  two: boolean;
+  three: boolean;
 };
 
-export type ActionType = {
-  type: string;
+export type KindType = 'cheep' | 'fast';
+
+export type ActionType = TransferActionType | TicketsActionType | KindActionType;
+
+export type TransferActionType = {
+  type: typeof SET_TRANSFER;
   payload: TransferType;
+};
+
+export type TicketsActionType = {
+  type: typeof SET_TICKETS;
+  payload: Array<TicketI>;
+};
+
+export type KindActionType = {
+  type: typeof SET_KIND;
+  payload: KindType;
 };
 
 export interface TicketSegmentsElem {
@@ -41,19 +57,25 @@ export interface TicketI {
 }
 
 const initialState: InitialStateType = {
-  transfer: <TransferType>{
-    all: false,
-    none: false,
-    one: false,
-    two: false,
-    three: false,
+  transfer: {
+    all: true,
+    none: true,
+    one: true,
+    two: true,
+    three: true,
   },
+  kind: 'cheep',
+  tickets: [],
 };
 
 export function reducer(state = initialState, action: ActionType): InitialStateType {
   switch (action.type) {
+    case SET_TICKETS:
+      return { ...state, tickets: [...state.tickets, ...action.payload] };
     case SET_TRANSFER:
       return { ...state, transfer: action.payload };
+    case SET_KIND:
+      return { ...state, kind: action.payload };
     default:
       return state;
   }
